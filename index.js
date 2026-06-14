@@ -1,15 +1,23 @@
 const http = require('http');
 
+function task(x) {
+  return x * x * x;
+}
+
 const server = http.createServer((req, res) => {
-  if (req.url === '/') {
-    res.writeHead(200, {
-      'Content-Type': 'text/plain',
-      'X-Author': 'l1zavetkns',
-      'Access-Control-Allow-Origin': '*'
-    });
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Content-Type': 'text/plain; charset=UTF-8'
+  };
+
+  if (req.url === '/login/') {
+    res.writeHead(200, headers);
     res.end('l1zavetkns');
+  } else if (req.url === '/sample/') {
+    res.writeHead(200, headers);
+    res.end(task.toString());
   } else {
-    res.writeHead(404);
+    res.writeHead(404, headers);
     res.end('Not found');
   }
 });
